@@ -8,14 +8,15 @@ public class AiController : MonoBehaviour
 {
     [Inject] private AiManager aiManager;
     [SerializeField] internal NavMeshAgent agent;
-    AiMovement aiMovement;
     private void Awake()
     {
-        aiMovement = new AiMovement(this);
     }
     private void Start() // OnEnable injection iþlemi tamamlandýktan sonra çaðrýlýr
     {
-        aiManager.ZenjectTest();
+        Getmission();
+    }
+    public void Getmission()
+    {
         IMission mission = aiManager.GetNextGorev();
         if (mission != null)
         {
@@ -23,7 +24,10 @@ public class AiController : MonoBehaviour
             mission.Execute(this);
         }
     }
-
+    public void CoroutineStart(IEnumerator coroutine)
+    {
+        StartCoroutine(coroutine);
+    }
     // Update is called once per frame
     void Update()
     {

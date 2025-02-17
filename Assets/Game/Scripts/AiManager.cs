@@ -4,24 +4,20 @@ using UnityEngine;
 
 public class AiManager : MonoBehaviour
 {
-    private Queue<IMission> gorevListesi = new Queue<IMission>();
+    private Queue<IMission> missionList = new Queue<IMission>();
+    [SerializeField] Transform target;
 
-    
     private void Awake()
     {
-        // Görevleri sýrayla ekliyoruz
-        gorevListesi.Enqueue(new CuttingMission());
-        gorevListesi.Enqueue(new StackMission());
     }
-    public void ZenjectTest()
+    public void SetNewMission(IMission mission)
     {
-        Debug.Log("test");
+        missionList.Enqueue(mission);
     }
-
     public IMission GetNextGorev()
     {
-        if (gorevListesi.Count > 0)
-            return gorevListesi.Dequeue();
+        if (missionList.Count > 0)
+            return missionList.Dequeue();
         return null;
     }
 }
